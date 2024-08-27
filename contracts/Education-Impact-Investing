@@ -1,0 +1,68 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract EducationImpactInvesting {
+    struct Venture {
+        uint id;
+        string name;
+        string description;
+        address payable owner;
+        uint fundingGoal;
+        uint amountRaised;
+        bool funded;
+    }
+
+    mapping(uint => Venture) public ventures;
+    uint public ventureCount;
+
+    mapping(address => uint) public balances;
+
+    event VentureCreated(
+        uint id,
+        string name,
+        string description,
+        address payable owner,
+        uint fundingGoal,
+        uint amountRaised,
+        bool funded
+    );
+
+    event InvestmentMade(
+        uint id,
+        address investor,
+        uint amount
+    );
+
+    function createVenture(string memory _name, string memory _description, uint _fundingGoal) public {
+        require(bytes(_name).length > 0, "Name is required");
+        require(bytes(_description).length > 0, "Description is required");
+        require(_fundingGoal > 0, "Funding goal must be greater than zero");
+
+        ventureCount++;
+        ventures[ventureCount] = Venture(ventureCount, _name, _description, payable(msg.sender), _fundingGoal, 0, false);
+
+        emit VentureCreated(ventureCount, _name, _description, payable(msg.sender), _fundingGoal, 0, false);
+    }
+
+    function investInVenture(uint _id) public payable {
+        Venture storage _venture = ventures[_id];
+        require(_venture.id > 0 && _venture.id <= ventureCount, "Venture does not exist");
+        require(msg.value > 0, "Investment amount must be greater than zero");
+        require(!_venture.funded, "Venture already funded");
+
+        _venture.amountRaised += msg.value;
+        balances[msg.sender] += msg.value;
+
+        if (_venture.amountRaised >= _venture.fundingGoal) {
+            _venture.funded = true;
+            _venture.owner.transfer(_venture.amountRaised);
+        }
+
+        emit InvestmentMade(_id, msg.sender, msg.value);
+    }
+
+    function getVenture(uint _id) public view returns (uint, string memory, string memory, address, uint, uint, bool) {
+        Venture memory _venture = ventures[_id];
+        return (_venture.id, _venture.name, _venture.description, _venture.owner, _venture.fundingGoal, _venture.amountRaised, _venture.funded);
+    }
+}
