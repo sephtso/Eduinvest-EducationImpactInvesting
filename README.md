@@ -3,7 +3,8 @@ Certainly! Here’s a concise README file for your Education Impact Investing pr
 ---
 
 # Education Impact Investing
-![image](https://github.com/user-attachments/assets/f94b55c6-09ed-4622-968d-e21ca7c9e234)
+![image](https://github.com/user-attachments/assets/b4358bb3-9439-4b5d-bb81-082786980f93)
+
 
 ## Vision
 
