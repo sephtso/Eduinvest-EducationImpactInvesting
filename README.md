@@ -38,23 +38,21 @@ Education Impact Investing aims to empower educational ventures by providing a d
    |  Check Funding     |
    |  Goal Met?         |
    +--------------------+
-       |         |
-       v         v
-  +-----------+  +--------------------+
-  | Fund Venture|  |  Continue Investment|
-  +-----------+  +--------------------+
-              |
-              v
-   +--------------------+
-   |  Venture Funded    |
-   +--------------------+
-```
+       |              |
+       v              v
+  +-----------+     +--------------------+
+  |FundVenture|     | ContinueInvestment |
+  +-----------+-----+--------------------+
+                 |
+                 v
+      +--------------------+
+      |  Venture Funded    |
+      +--------------------+
+
 
 ## Contract Address
 
 - **Contract Address**: 0x831fA3DA96Ab3A7c43075E52B09DbA99440e3829
-
-(Note: Replace with the actual contract address after deployment.)
 
 ## Future Scope
 
